@@ -68,13 +68,28 @@ export type MatchResult = {
   matched: boolean;
 };
 
-export const MATCH_SCORE_THRESHOLD = 0.7;
-export const MATCH_MAX_FINGER_DIFF = 0.4;
+export type MatchTolerance = {
+  /** Minimum overall score (0..1) to count as a match. */
+  scoreThreshold: number;
+  /** Largest allowed single-finger curl difference (0..1). */
+  maxFingerDiff: number;
+};
+
+export const STANDARD_TOLERANCE: MatchTolerance = { scoreThreshold: 0.7, maxFingerDiff: 0.4 };
+/** Wider tolerance for learners with limited finger dexterity or tremor. */
+export const RELAXED_TOLERANCE: MatchTolerance = { scoreThreshold: 0.6, maxFingerDiff: 0.5 };
+
+export const MATCH_SCORE_THRESHOLD = STANDARD_TOLERANCE.scoreThreshold;
+export const MATCH_MAX_FINGER_DIFF = STANDARD_TOLERANCE.maxFingerDiff;
 
 /** Per-finger difference is scaled so a 0.5 curl gap counts as a total miss. */
 const FULL_ERROR_DIFF = 0.5;
 
-export function matchPose(live: FingerCurls, target: FingerCurls): MatchResult {
+export function matchPose(
+  live: FingerCurls,
+  target: FingerCurls,
+  tolerance: MatchTolerance = STANDARD_TOLERANCE,
+): MatchResult {
   let errorSum = 0;
   let maxDiff = 0;
   for (const f of FINGERS) {
@@ -86,7 +101,7 @@ export function matchPose(live: FingerCurls, target: FingerCurls): MatchResult {
   return {
     score,
     maxDiff,
-    matched: score >= MATCH_SCORE_THRESHOLD && maxDiff <= MATCH_MAX_FINGER_DIFF,
+    matched: score >= tolerance.scoreThreshold && maxDiff <= tolerance.maxFingerDiff,
   };
 }
 

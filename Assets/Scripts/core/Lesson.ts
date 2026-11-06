@@ -1,4 +1,12 @@
-import { FingerCurls, MatchResult, matchPose, smoothCurls } from "./HandPose";
+import {
+  FingerCurls,
+  MatchResult,
+  MatchTolerance,
+  RELAXED_TOLERANCE,
+  STANDARD_TOLERANCE,
+  matchPose,
+  smoothCurls,
+} from "./HandPose";
 import { Sign } from "./SignLibrary";
 
 export type LessonPhase = "practice" | "blooming" | "complete";
@@ -10,12 +18,44 @@ export type LessonConfig = {
   bloomSeconds: number;
   /** Curl smoothing factor per update, 0..1 (higher = more responsive). */
   smoothing: number;
+  /** How strict pose matching is. */
+  tolerance: MatchTolerance;
 };
 
 export const DEFAULT_LESSON: LessonConfig = {
   holdSeconds: 1.0,
   bloomSeconds: 1.4,
   smoothing: 0.35,
+  tolerance: STANDARD_TOLERANCE,
+};
+
+/** Faster pacing for a tight demo video. */
+export const DEMO_LESSON: LessonConfig = {
+  holdSeconds: 0.6,
+  bloomSeconds: 1.0,
+  smoothing: 0.5,
+  tolerance: STANDARD_TOLERANCE,
+};
+
+/** Slower pacing, wider tolerance and heavier smoothing for limited dexterity or tremor. */
+export const ACCESSIBLE_LESSON: LessonConfig = {
+  holdSeconds: 1.6,
+  bloomSeconds: 1.6,
+  smoothing: 0.25,
+  tolerance: RELAXED_TOLERANCE,
+};
+
+export const LESSON_PRESETS: Record<string, LessonConfig> = {
+  standard: DEFAULT_LESSON,
+  demo: DEMO_LESSON,
+  accessible: ACCESSIBLE_LESSON,
+};
+
+export type LearnStats = {
+  /** Seconds between the sign first appearing and being learned. */
+  seconds: number;
+  /** Mean match score (0..1) over frames where a hand was tracked. */
+  avgScore: number;
 };
 
 export type LessonSnapshot = {
@@ -31,6 +71,8 @@ export type LessonSnapshot = {
   smoothedCurls: FingerCurls | null;
   /** Ids of signs learned so far, in order. */
   learned: string[];
+  /** Number of signs in this lesson. */
+  total: number;
 };
 
 /**
@@ -50,8 +92,11 @@ export class Lesson {
   private curls: FingerCurls | null = null;
   private match: MatchResult | null = null;
   private learned: string[] = [];
+  private signSeconds = 0;
+  private scoreSum = 0;
+  private scoreFrames = 0;
 
-  onLearned: ((sign: Sign, ringIndex: number) => void) | null = null;
+  onLearned: ((sign: Sign, ringIndex: number, stats: LearnStats) => void) | null = null;
   onComplete: (() => void) | null = null;
 
   constructor(
@@ -65,9 +110,13 @@ export class Lesson {
     const step = Math.max(0, Math.min(dt, 0.25)); // guard against frame hitches
 
     if (this.phase === "practice") {
+      this.signSeconds += step;
+
       if (liveCurls) {
         this.curls = smoothCurls(this.curls, liveCurls, this.config.smoothing);
-        this.match = matchPose(this.curls, this.currentSign.curls);
+        this.match = matchPose(this.curls, this.currentSign.curls, this.config.tolerance);
+        this.scoreSum += this.match.score;
+        this.scoreFrames += 1;
       } else {
         this.curls = null;
         this.match = null;
@@ -79,10 +128,14 @@ export class Lesson {
 
       if (this.hold >= 1) {
         const earned = this.currentSign;
+        const stats: LearnStats = {
+          seconds: this.signSeconds,
+          avgScore: this.scoreFrames > 0 ? this.scoreSum / this.scoreFrames : 0,
+        };
         this.learned.push(earned.id);
         this.phase = "blooming";
         this.bloom = 0;
-        this.onLearned?.(earned, this.learned.length - 1);
+        this.onLearned?.(earned, this.learned.length - 1, stats);
       }
     } else if (this.phase === "blooming") {
       this.bloom += step / this.config.bloomSeconds;
@@ -93,11 +146,7 @@ export class Lesson {
           this.onComplete?.();
         } else {
           this.signIndex += 1;
-          this.phase = "practice";
-          this.hold = 0;
-          this.bloom = 0;
-          this.curls = null;
-          this.match = null;
+          this.beginSign();
         }
       }
     }
@@ -110,20 +159,25 @@ export class Lesson {
     if (this.phase !== "practice") return;
     if (this.signIndex < this.signs.length - 1) {
       this.signIndex += 1;
-      this.hold = 0;
-      this.curls = null;
-      this.match = null;
+      this.beginSign();
     }
   }
 
   reset(): void {
-    this.phase = "practice";
     this.signIndex = 0;
+    this.learned = [];
+    this.beginSign();
+  }
+
+  private beginSign(): void {
+    this.phase = "practice";
     this.hold = 0;
     this.bloom = 0;
     this.curls = null;
     this.match = null;
-    this.learned = [];
+    this.signSeconds = 0;
+    this.scoreSum = 0;
+    this.scoreFrames = 0;
   }
 
   get currentSign(): Sign {
@@ -140,6 +194,7 @@ export class Lesson {
       match: this.match,
       smoothedCurls: this.curls,
       learned: [...this.learned],
+      total: this.signs.length,
     };
   }
 }

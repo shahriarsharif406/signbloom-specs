@@ -9,8 +9,10 @@ export type Sign = {
   english: string;
   /** Target finger curls: 0 = extended, 1 = curled. */
   curls: FingerCurls;
-  /** Short coaching hint shown under the target. */
+  /** Short coaching hint (English). */
   hint: string;
+  /** Short coaching hint (Bangla). */
+  hintBn: string;
 };
 
 const c = (thumb: number, index: number, middle: number, ring: number, pinky: number): FingerCurls => ({
@@ -37,6 +39,7 @@ export const SIGNS: readonly Sign[] = [
     english: "Zero",
     curls: c(0.85, 1, 1, 1, 1),
     hint: "Close your hand into a fist.",
+    hintBn: "হাত মুঠো করুন।",
   },
   {
     id: "one",
@@ -45,6 +48,7 @@ export const SIGNS: readonly Sign[] = [
     english: "One",
     curls: c(0.85, 0, 1, 1, 1),
     hint: "Raise only your index finger.",
+    hintBn: "শুধু তর্জনী তুলুন।",
   },
   {
     id: "two",
@@ -53,6 +57,7 @@ export const SIGNS: readonly Sign[] = [
     english: "Two",
     curls: c(0.85, 0, 0, 1, 1),
     hint: "Raise index and middle fingers.",
+    hintBn: "তর্জনী ও মধ্যমা তুলুন।",
   },
   {
     id: "three",
@@ -61,6 +66,7 @@ export const SIGNS: readonly Sign[] = [
     english: "Three",
     curls: c(0.85, 0, 0, 0, 1),
     hint: "Raise index, middle and ring fingers.",
+    hintBn: "তর্জনী, মধ্যমা ও অনামিকা তুলুন।",
   },
   {
     id: "four",
@@ -69,6 +75,7 @@ export const SIGNS: readonly Sign[] = [
     english: "Four",
     curls: c(0.85, 0, 0, 0, 0),
     hint: "Raise four fingers, thumb tucked in.",
+    hintBn: "বুড়ো আঙুল ভেতরে রেখে চার আঙুল তুলুন।",
   },
   {
     id: "five",
@@ -77,6 +84,7 @@ export const SIGNS: readonly Sign[] = [
     english: "Five",
     curls: c(0, 0, 0, 0, 0),
     hint: "Open your whole hand.",
+    hintBn: "পুরো হাত খুলে দিন।",
   },
   {
     id: "good",
@@ -85,5 +93,6 @@ export const SIGNS: readonly Sign[] = [
     english: "Good",
     curls: c(0, 1, 1, 1, 1),
     hint: "Fist with the thumb pointing up.",
+    hintBn: "মুঠো করে বুড়ো আঙুল উপরে তুলুন।",
   },
 ];

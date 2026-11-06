@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build:core": "tsc -p tsconfig.json",
-    "test": "tsc -p tsconfig.json && node dist/tests/core.test.js"
+    "test": "tsc -p tsconfig.json && node dist/tests/core.test.js",
+    "typecheck:lens": "tsc -p tsconfig.lens.json",
+    "check": "npm test && npm run typecheck:lens"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

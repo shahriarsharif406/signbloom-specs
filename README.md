@@ -4,61 +4,74 @@
 
 A Snap **SPECS** Lens built for the *Learn AR with SPECS* hackathon.
 
-SignBloom turns learning sign language into making art. A target hand shape is shown as five finger gauges. You copy it with your own hand, hold it for a second, and the sign "takes": a ring of petals blooms in front of you, interlocking with the rings from earlier signs. Master all seven signs and you unlock **Alpona Air** — pinch and draw in mid-air, and every stroke is mirrored eight ways into a symmetric alpona.
+[![CI](https://github.com/shahriarsharif406/signbloom-specs/actions/workflows/ci.yml/badge.svg)](https://github.com/shahriarsharif406/signbloom-specs/actions/workflows/ci.yml)
+![tests](https://img.shields.io/badge/tests-46%20passing-brightgreen)
+![license](https://img.shields.io/badge/license-MIT-blue)
 
-alpona (আল্পনা) is the traditional Bengali floor art drawn for celebrations. Sign language is a language many hearing people never get a chance to learn. SignBloom connects the two: practising becomes decorating.
+SignBloom turns learning sign language into making art. A target hand shape is shown as five finger gauges. You copy it with your own hand, hold it, and the sign "takes": a ring of petals blooms in front of you, interlocking with the rings from earlier signs. Finish the set and you unlock **Alpona Air** — pinch and draw in mid-air, and every stroke is mirrored into a symmetric alpona.
+
+*Alpona* (আল্পনা) is the traditional Bengali floor art drawn for celebrations. Sign language is a language most hearing people never get to learn. SignBloom connects the two: practising becomes decorating.
+
+## Features
+
+| | |
+|---|---|
+| 🤟 **Learn mode** | 7 starter signs (শূন্য · এক · দুই · তিন · চার · পাঁচ · ভালো) with live finger gauges and a coach that names the finger to fix |
+| 🧠 **Quiz mode** | Same signs, shuffled, hints hidden — show the sign from memory |
+| ⭐ **Stars, XP & streaks** | 1–3 stars per sign for accuracy *and* fluency; combo streaks; lifetime progress saved on device |
+| 🌸 **Bloom** | Each learned sign adds an interlocking petal ring with a staggered "pop" animation, then the bloom gently breathes |
+| 🎨 **Alpona Air** | Pinch-and-draw with 4/6/8/12-fold symmetry, 7 brush colours, undo and clear |
+| 🌐 **Bangla + English** | Whole UI, coaching and finger names in both languages, switchable at runtime |
+| ♿ **Accessible preset** | Slower hold, wider tolerance, heavier smoothing, forgiving star pacing — for limited dexterity or tremor |
+| 🔊 **Sound cues** | Optional soft cues for learned / 3-star / complete / tap |
+| 🎬 **Demo mode** | A scripted virtual hand runs the whole experience in the Lens Studio preview — no headset needed to record |
+| 🔒 **Private by design** | No network, no accounts, no analytics. Progress never leaves the device |
 
 ## How it works
 
-```
- tracked hand ──► finger curls ──► match vs. target ──► hold 1 s ──► sign learned
-                  (0 = straight,    (tolerant to hand    (forgiving     │
-                   1 = curled)       size & rotation)     of slips)     ▼
-                                                              petal ring blooms
-                                                                        │
-                                                    all signs learned ──► Alpona Air
+```mermaid
+flowchart LR
+    H[Tracked hand<br/>or simulated hand] --> C[Finger curls<br/>0 = straight, 1 = curled]
+    C --> M[Match vs. target<br/>size and rotation tolerant]
+    M --> L[Lesson<br/>smoothing · forgiving hold]
+    L --> S[Score<br/>stars · XP · streak]
+    L --> B[Bloom ring]
+    S --> P[(Progress<br/>on device)]
+    B --> A[Alpona Air<br/>free painting]
 ```
 
-- **Hand → curls.** Each finger is reduced to one number from its joint bend angles, so matching works for any hand size and distance.
-- **Smoothing + forgiving hold.** Tracking jitter is smoothed, and a brief slip drains progress slowly instead of resetting it.
-- **Coaching.** When you're close, the Lens names the finger to fix ("Try to straighten your ring finger").
-- **Alpona geometry.** Each learned sign adds a ring with more petals than the last (8, 12, 16, …), offset by half a petal so rings interlock. Alpona Air applies 8-fold rotational + mirror symmetry to your stroke.
-- **Demo mode.** A scripted virtual hand drives the whole experience so it can be previewed and recorded in the Lens Studio preview without a headset.
+The experience is one state machine — **welcome → learn / quiz → summary → paint** — implemented in pure TypeScript with no engine dependencies, so it is fully unit-tested. Thin Lens Studio components only read the hand and render the result. See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ## Repository layout
 
 | Path | What it is |
 |---|---|
-| `Assets/Scripts/core/` | Pure TypeScript logic (hand math, sign library, lesson state machine, alpona geometry). No engine dependencies. **Unit-tested.** |
-| `Assets/Scripts/lens/` | Thin Lens Studio components that connect the core to the scene (SIK hand input, simulated hand, petal renderer, painter, controller). |
-| `tests/` | 21 tests covering matching, symmetry and the full lesson flow. |
-| `docs/SETUP.md` | Step-by-step: open in Lens Studio, build the scene, wire the Inspector, preview. |
-| `devpost/` | Planning docs, submission text, video script and final checklist. |
+| `Assets/Scripts/core/` | Pure logic: hand math, signs, lesson, session, scoring, progress, strings, theme, paint, symmetry. **Unit-tested.** |
+| `Assets/Scripts/lens/` | Lens Studio components: SIK hand input, simulated hand, bloom renderer, painter, audio, controller. |
+| `tests/` | 46 tests: matching, symmetry, lesson flow, scoring, persistence, i18n parity, session lifecycle. |
+| `types/` | Local Lens Studio type stubs so CI can type-check the Lens scripts. |
+| `docs/` | Setup, architecture, accessibility, roadmap. |
+| `devpost/` | Plan, submission text, video script, checklist. |
 
-## Run the tests (no Lens Studio needed)
+## Quick start
 
 ```bash
 npm install
-npm test
+npm run check      # 46 unit tests + type-check of the Lens scripts
 ```
 
-## Run the Lens
+To run the Lens itself, follow [`docs/SETUP.md`](docs/SETUP.md) (about 30 minutes in Lens Studio). With **Demo Mode** on, press Preview and watch a full run.
 
-See [`docs/SETUP.md`](docs/SETUP.md). In short: create a SPECS project in Lens Studio, copy `Assets/Scripts` in, build the small scene described there, set **Demo Mode** on, and press Preview.
+## Honest limitations
 
-## The sign set
-
-Seven starter signs, chosen because they can be recognised reliably from finger curl alone:
-
-শূন্য (0) · এক (1) · দুই (2) · তিন (3) · চার (4) · পাঁচ (5) · ভালো (good)
-
-> **Note for real-world use:** number-sign variants differ by region and community. This starter set should be reviewed by a Bangla Sign Language (BdSL) educator before it is used for teaching. Adding a sign is a single entry in `core/SignLibrary.ts`.
+- Matching uses **finger curl**, so it recognises static hand shapes that differ in which fingers are curled or extended. Motion-based signs, two-handed signs and facial grammar need sequence recognition — see the [roadmap](docs/ROADMAP.md).
+- Number-sign variants differ by region and community. This starter set must be **reviewed by a Bangla Sign Language (BdSL) educator** before it is used for real teaching. Adding or changing a sign is one entry in `core/SignLibrary.ts`.
+- The `core/` logic is covered by automated tests; the Lens Studio scene glue was type-checked against local stubs and must be run in Lens Studio to confirm.
 
 ## Built with
 
-- Lens Studio + Spectacles Interaction Kit (hand tracking)
-- TypeScript
-- AI-assisted development with Claude (code and documentation drafted with an AI coding assistant, as permitted by the hackathon rules)
+- Lens Studio · Spectacles Interaction Kit (hand tracking) · TypeScript
+- AI-assisted development with Claude (code and documentation drafted with an AI coding assistant, as the hackathon rules permit)
 
 ## License
 

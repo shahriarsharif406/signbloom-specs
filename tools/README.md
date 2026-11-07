@@ -2,7 +2,7 @@
 
 ## derive_curls.py — real BdSL signs from open data
 
-Turns the **BdSL47** dataset into SignBloom sign targets, using the same curl math as `core/HandPose.ts`.
+Turns the **BdSL47** dataset into a Bangla Sign Language pack, using the same curl math as `core/HandPose.ts`.
 
 ```bash
 python3 tools/derive_curls.py --selftest              # checks the math against known hands
@@ -11,7 +11,7 @@ python3 tools/derive_curls.py /path/to/BdSL47/digits  # prints medians, confusab
 
 1. Download BdSL47 from <https://data.mendeley.com/datasets/pbb3w3f92y> (the digits folder is enough).
 2. Run the script on that folder.
-3. Paste the printed entries into `Assets/Scripts/core/SignLibrary.ts`, add hints, run `npm test` (it re-checks that all signs are mutually distinct).
+3. Paste the printed entries into `BANGLA_STARTER_SIGNS` in `Assets/Scripts/core/SignLibrary.ts`, add hints, run `npm test` (it re-checks that all signs are mutually distinct).
 
 The script also warns when two digits cannot be told apart by finger curl alone — keep one of the pair or extend the features.
 

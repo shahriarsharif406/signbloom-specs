@@ -15,7 +15,7 @@ Assets/Scripts/
 | Module | Responsibility |
 |---|---|
 | `HandPose` | Joint positions → one **curl** value per finger (0 straight … 1 curled); pose matching with selectable tolerance; smoothing |
-| `SignLibrary` | The sign set (target curls, Bangla/English labels and hints) |
+| `SignLibrary` · `Packs` | Language-neutral signs (label, target curls, hints) grouped into **sign packs** — ASL (default) and a Bangla starter; ids are namespaced and tests enforce uniqueness and mutual distinctness per pack |
 | `Lesson` | Practice → blooming → next state machine; hold timer that drains slowly on slips; per-sign stats (time, mean accuracy); presets `standard` / `demo` / `accessible` |
 | `Scoring` | Stars from accuracy and pace; XP and streak (`ScoreKeeper`) |
 | `Session` | The whole experience: welcome → learn / quiz → summary → paint; owns the Lesson, ScoreKeeper and progress saving |
@@ -59,7 +59,7 @@ HandSource.getCurls()  ─►  Session.update(dt, curls)  ─►  SessionSnapsho
 
 ## Testing strategy
 
-- `npm test` — 46 tests over `core/`, including synthetic-hand round trips, "no sign is mistaken for another" (standard *and* relaxed tolerance), full lesson/session lifecycles, persistence corruption handling and Bangla/English string parity.
+- `npm test` — 49 tests over `core/`, including synthetic-hand round trips, "no sign is mistaken for another" (standard *and* relaxed tolerance), full lesson/session lifecycles, persistence corruption handling and Bangla/English string parity.
 - `npm run typecheck:lens` — compiles `lens/` against `types/lens-studio.d.ts`. These stubs are hand-written approximations, so this catches typos and logic slips but cannot prove the real Lens Studio API matches; Lens Studio is the final check.
 - CI runs both on every push.
 

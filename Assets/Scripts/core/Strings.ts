@@ -3,7 +3,7 @@ import { FingerName } from "./HandPose";
 export type Lang = "en" | "bn";
 
 const EN = {
-  tagline: "Learn signs. Grow alpona.",
+  tagline: "Hold a sign. Grow a bloom.",
   welcomeHand: "Raise your hand to begin",
   welcomeReady: "Hand found — let's bloom!",
   hold: "Hold it…",
@@ -12,7 +12,7 @@ const EN = {
   tryCurl: "Try to curl your {finger}.",
   progress: "{n} / {total} signs",
   completeTitle: "It bloomed!",
-  completeHint: "Pinch and draw in the air to paint your own alpona.",
+  completeHint: "Pinch and draw in the air to paint your own symmetric bloom.",
   summaryTitle: "Lesson complete",
   stars: "{n} / {max} stars",
   xp: "{n} XP",
@@ -29,7 +29,7 @@ const EN = {
 export type StringKey = keyof typeof EN;
 
 const BN: Record<StringKey, string> = {
-  tagline: "ইশারা শিখুন, আল্পনা ফোটান",
+  tagline: "ইশারা ধরুন, ফুল ফোটান",
   welcomeHand: "শুরু করতে আপনার হাত তুলুন",
   welcomeReady: "হাত পেয়েছি — শুরু করি!",
   hold: "ধরে রাখুন…",

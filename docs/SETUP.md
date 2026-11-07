@@ -17,8 +17,8 @@ Create this hierarchy about 60–80 cm in front of the user:
 ```
 SignBloom
 ├── UI
-│   ├── SignBangla      (Text, large, Bengali-capable font)
-│   ├── SignRoman       (Text, medium)
+│   ├── SignLabel       (Text, large)
+│   ├── SignSubtitle    (Text, medium)
 │   ├── HintText        (Text, small)
 │   ├── ProgressText    (Text, small)
 │   ├── StreakText      (Text, small)        ← optional
@@ -35,7 +35,7 @@ Bar order everywhere is **thumb, index, middle, ring, pinky**. Colours are appli
 
 **Keep the screen clean:** for judges and the video, leave the optional `StreakText` and `StatsText` empty — fewer words on screen reads faster.
 
-**Bangla text:** assign a font that supports Bengali script (e.g. Noto Sans Bengali) to every Text component, otherwise the characters will not render.
+**Bangla:** the Bangla pack and Bangla UI need a font that supports Bengali script (e.g. Noto Sans Bengali) on the Text components, otherwise the characters will not render.
 
 ## 3. Prefabs and materials
 
@@ -51,13 +51,14 @@ Giving the scripts these two materials is what unlocks the 7-colour alpona palet
 | `BloomRenderer` | `BloomRoot` | Petal Prefab, Bloom Root (itself), **Petal Material** (the petal prefab's material), Size Scale = 1, Breathe ✔ |
 | `FreeAlponaPainter` | `PaintRoot` | Dot Prefab, Paint Root (itself), **Dot Material**, Spacing = 0.6, Max Dots = 1500 |
 | `AudioFeedback` *(optional)* | any object | Audio components for Learned / Star3 / Complete / Tap — leave empty for silence |
-| `SignBloomController` | `SignBloom` (root) | Texts (Sign Bangla / Roman / Hint / Progress, optional Streak / Stats), Target Bars ×5, Live Bars ×5, Hold Indicator, Bloom → BloomRoot, Painter → PaintRoot, Audio, **Demo Mode ✔**, Preset = *Demo* |
+| `SignBloomController` | `SignBloom` (root) | Texts (Sign Label / Sign Subtitle / Hint / Progress, optional Streak / Stats), Target Bars ×5, Live Bars ×5, Hold Indicator, Bloom → BloomRoot, Painter → PaintRoot, Audio, **Demo Mode ✔**, Preset = *Demo* |
 
 ### Controller settings
 
 | Field | Meaning |
 |---|---|
 | Demo Mode | Scripted virtual hand + throw-away storage. Turn **off** on a real device |
+| Sign Pack | *American Sign Language* (default) or *Bangla numerals (starter)* |
 | Preset | *Demo* (fast, for video) · *Standard* · *Accessible* (slower, forgiving) |
 | Bangla Ui | Start in Bangla (also switchable at runtime) |
 | Right Hand | Which hand to track on device |
@@ -92,7 +93,7 @@ Set **Demo Mode** off and Preset to *Standard* or *Accessible*. `SIKHandSource` 
 
 | Symptom | Fix |
 |---|---|
-| Bangla text shows boxes | Assign a Bengali-capable font to each Text component |
+| Bangla text shows boxes | Assign a Bengali-capable font to each Text component (only needed for the Bangla pack/UI) |
 | Nothing blooms | Check **Petal Prefab** and **Bloom Root** on `BloomRenderer`, and **Bloom** on the controller |
 | Petals are all one colour | Assign **Petal Material** (and **Dot Material** for the painter) |
 | Petals are huge/tiny | Adjust **Size Scale** on `BloomRenderer` |

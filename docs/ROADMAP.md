@@ -6,9 +6,11 @@
 - [x] Bangla + English UI, accessible preset
 - [x] Bloom animation, Alpona Air (4/6/8/12-fold, 7 brushes, undo/clear)
 - [x] Demo mode for recording in the Lens Studio preview
-- [x] 46 unit tests, Lens type-check, CI
+- [x] 49 unit tests, Lens type-check, CI
 
 ## Next
+- **More packs:** BSL, LSF, ISL, Auslan… a pack is one entry in `core/Packs.ts`; contributions from signers welcome.
+- **Contact-based signs** (ASL 0, 6–9 use thumb–finger contact): add a fingertip-distance feature next to finger curl.
 0. **Real BdSL targets:** run `tools/derive_curls.py` on BdSL47 (10 digits ০–৯) and replace the starter set.
 1. **Educator review** of the sign set with Bangla Sign Language educators and Deaf learners; adopt their corrections as the source of truth.
 2. **Expanded curriculum:** alphabet (বর্ণমালা), greetings, family words, in levels with unlock progression.

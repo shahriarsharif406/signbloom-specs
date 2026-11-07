@@ -2,7 +2,8 @@ import { FINGERS, FingerCurls } from "../core/HandPose";
 import { LESSON_PRESETS } from "../core/Lesson";
 import { MemoryStore, ProgressStore } from "../core/Progress";
 import { Session, SessionSnapshot } from "../core/Session";
-import { SIGNS } from "../core/SignLibrary";
+import { getPack } from "../core/Packs";
+import { Sign } from "../core/SignLibrary";
 import { FINGER_NAMES, Lang, StringKey, t } from "../core/Strings";
 import { THEME } from "../core/Theme";
 import { AudioFeedback } from "./AudioFeedback";
@@ -24,8 +25,8 @@ import { SimulatedHandSource } from "./SimulatedHandSource";
 @component
 export class SignBloomController extends BaseScriptComponent {
   // ---- UI text --------------------------------------------------------------
-  @input signBangla: Text;
-  @input signRoman: Text;
+  @input signLabel: Text;
+  @input signSubtitle: Text;
   @input hintText: Text;
   @input progressText: Text;
 
@@ -82,10 +83,21 @@ export class SignBloomController extends BaseScriptComponent {
   preset: string = "demo";
 
   @input
+  @widget(
+    new ComboBoxWidget([
+      new ComboBoxItem("American Sign Language (default)", "asl"),
+      new ComboBoxItem("Bangla numerals (starter)", "bangla"),
+    ]),
+  )
+  @hint("Which sign-language pack to teach.")
+  signPack: string = "asl";
+
+  @input
   @hint("Start in Bangla. Can be toggled at runtime with toggleLanguage().")
   banglaUi: boolean = false;
 
   private session: Session;
+  private signs: readonly Sign[] = [];
   private source: HandSource | null = null;
   private sim: SimulatedHandSource | null = null;
   private progress: ProgressStore;
@@ -100,9 +112,10 @@ export class SignBloomController extends BaseScriptComponent {
     this.progress = new ProgressStore(this.demoMode ? new MemoryStore() : new LensPersistentStore());
     this.lang = this.banglaUi ? "bn" : this.progress.get().lang;
 
+    this.signs = getPack(this.signPack).signs;
     const lessonCfg = LESSON_PRESETS[this.preset] ?? LESSON_PRESETS.standard;
     this.session = new Session(
-      SIGNS,
+      this.signs,
       lessonCfg,
       {
         summaryAutoSeconds: this.demoMode ? 4 : null,
@@ -160,13 +173,13 @@ export class SignBloomController extends BaseScriptComponent {
 
   private renderText(snap: SessionSnapshot) {
     const sc = snap.score;
-    const progressLabel = this.s("progress", { n: sc.learnedCount, total: SIGNS.length });
+    const progressLabel = this.s("progress", { n: sc.learnedCount, total: this.signs.length });
     let hold = 0;
 
     switch (snap.phase) {
       case "welcome":
-        this.signBangla.text = "SignBloom";
-        this.signRoman.text = this.s("tagline");
+        this.signLabel.text = "SignBloom";
+        this.signSubtitle.text = this.s("tagline");
         this.hintText.text = snap.welcomeReady ? this.s("welcomeReady") : this.s("welcomeHand");
         this.progressText.text = "";
         break;
@@ -175,8 +188,8 @@ export class SignBloomController extends BaseScriptComponent {
         const l = snap.lesson!;
         const sign = l.sign;
         const quiz = snap.mode === "quiz";
-        this.signBangla.text = sign.bangla;
-        this.signRoman.text = `${sign.roman} — ${sign.english}`;
+        this.signLabel.text = sign.label;
+        this.signSubtitle.text = this.subtitle(sign);
         if (l.phase === "blooming") this.hintText.text = this.s("great");
         else if (quiz) this.hintText.text = this.s("quizHint");
         else this.hintText.text = this.coach(snap);
@@ -186,16 +199,16 @@ export class SignBloomController extends BaseScriptComponent {
       }
 
       case "summary":
-        this.signBangla.text = this.s("summaryTitle");
-        this.signRoman.text = this.s("stars", { n: sc.stars, max: sc.maxStars });
+        this.signLabel.text = this.s("summaryTitle");
+        this.signSubtitle.text = this.s("stars", { n: sc.stars, max: sc.maxStars });
         this.hintText.text = `${this.s("accuracy", { n: Math.round(sc.accuracy * 100) })}  ·  ${this.s("bestStreak", { n: sc.bestStreak })}`;
         this.progressText.text = this.s("xp", { n: sc.xp });
         hold = 1;
         break;
 
       case "paint":
-        this.signBangla.text = this.s("completeTitle");
-        this.signRoman.text = this.s("paintStatus", {
+        this.signLabel.text = this.s("completeTitle");
+        this.signSubtitle.text = this.s("paintStatus", {
           folds: this.s("paintFolds", { n: this.painter.folds }),
           brush: this.painter.brush,
         });
@@ -212,6 +225,10 @@ export class SignBloomController extends BaseScriptComponent {
     if (this.statsText) {
       this.statsText.text = sc.learnedCount > 0 ? `${this.s("xp", { n: sc.xp })}  ·  ${this.s("stars", { n: sc.stars, max: sc.maxStars })}` : "";
     }
+  }
+
+  private subtitle(sign: Sign): string {
+    return sign.reading ? `${sign.reading} — ${sign.english}` : sign.english;
   }
 
   /** Tell the learner which finger to fix. */
@@ -294,8 +311,8 @@ export class SignBloomController extends BaseScriptComponent {
   }
 
   private applyTheme() {
-    setTextColor(this.signBangla, THEME.gold);
-    setTextColor(this.signRoman, THEME.ivory);
+    setTextColor(this.signLabel, THEME.gold);
+    setTextColor(this.signSubtitle, THEME.ivory);
     setTextColor(this.hintText, THEME.mutedText);
     setTextColor(this.progressText, THEME.ivory);
     setTextColor(this.streakText, THEME.warning);

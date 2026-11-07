@@ -4,19 +4,19 @@
 SignBloom
 
 ## Tagline
-Hold a sign. Grow an alpona.
+Hold a sign. Grow a bloom.
 
 ## Description (about 150 words)
 
-**The problem.** Most people never learn sign language, because practice gives no feedback.
+**The problem.** About 70 million deaf people use 300+ sign languages (World Federation of the Deaf), yet most hearing people never learn one — practice gives no feedback.
 
-**The idea.** SignBloom is a Lens for SPECS. Copy the hand shape shown by five finger gauges and hold it — it blooms into a ring of traditional Bengali *alpona*. Each new sign adds an interlocking ring. Finish the set and draw your own symmetric alpona in mid-air.
+**The idea.** SignBloom is a Lens for SPECS. Copy the handshape shown by five finger gauges and hold it — it blooms into a ring of floral pattern inspired by Bengali *alpona* folk art. Each new sign adds an interlocking ring. Finish the set and draw your own symmetric bloom in mid-air.
 
-**Why it works.** Every finger is reduced to one curl value, so matching tolerates any hand size and rotation, and a coach line names the finger to fix. The whole experience is one pure TypeScript state machine with 46 unit tests and CI. Sign targets can be derived from the open BdSL47 dataset.
+**Why it works.** Every finger becomes one curl value, so matching tolerates any hand size and rotation, and a coach line names the finger to fix. The engine is language-agnostic: sign packs ship for ASL (default) and Bangla, and a pack can be built from open data. One tested state machine, 49 unit tests, CI.
 
-**Also included:** Bangla + English, an accessible mode with slower pacing and wider tolerance, and on-device-only progress.
+**Also:** English + Bangla UI, an accessible mode, no network.
 
-**Honest limits.** Static one-handed signs; the starter set needs Bangla Sign Language educator review.
+**Honest limits.** Static one-handed signs; packs are starter sets needing signer review.
 
 ## Built with
 Lens Studio, Spectacles Interaction Kit, TypeScript, Claude (AI-assisted development)

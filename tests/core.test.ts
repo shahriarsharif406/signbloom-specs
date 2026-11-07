@@ -9,7 +9,8 @@ import {
   fingerCurl,
   matchPose,
 } from "../Assets/Scripts/core/HandPose";
-import { SIGNS } from "../Assets/Scripts/core/SignLibrary";
+import { ASL_SIGNS as SIGNS } from "../Assets/Scripts/core/SignLibrary";
+import { PACKS, getPack, DEFAULT_PACK_ID } from "../Assets/Scripts/core/Packs";
 import { Lesson } from "../Assets/Scripts/core/Lesson";
 import {
   DEFAULT_BLOOM,
@@ -120,7 +121,7 @@ test("holding the right sign learns it and blooms", () => {
   const learned: string[] = [];
   lesson.onLearned = (s) => learned.push(s.id);
   runLesson(lesson, 1.5, SIGNS[0].curls);
-  assert.deepEqual(learned, ["zero"]);
+  assert.deepEqual(learned, [SIGNS[0].id]);
   assert.equal(lesson.snapshot().phase, "blooming");
 });
 test("after the bloom the next sign starts", () => {
@@ -194,6 +195,26 @@ test("signs stay mutually distinct even under relaxed tolerance", () => {
       if (a.id === b.id) continue;
       assert.equal(matchPose(a.curls, b.curls, RELAXED_TOLERANCE).matched, false, `${a.id}~${b.id}`);
     }
+});
+
+console.log("Packs");
+test("sign ids are unique across all packs", () => {
+  const ids = PACKS.flatMap((p) => p.signs.map((s) => s.id));
+  assert.equal(new Set(ids).size, ids.length);
+});
+test("every pack is mutually distinct under standard and relaxed tolerance", () => {
+  for (const pack of PACKS)
+    for (const a of pack.signs)
+      for (const b of pack.signs) {
+        if (a.id === b.id) continue;
+        assert.equal(matchPose(a.curls, b.curls).matched, false, `${pack.id}: ${a.id}~${b.id}`);
+        assert.equal(matchPose(a.curls, b.curls, RELAXED_TOLERANCE).matched, false, `${pack.id} relaxed: ${a.id}~${b.id}`);
+      }
+});
+test("default pack is ASL and unknown ids fall back to it", () => {
+  assert.equal(DEFAULT_PACK_ID, "asl");
+  assert.equal(getPack("nope").id, "asl");
+  assert.equal(getPack("bangla").id, "bangla");
 });
 
 console.log("Scoring");
@@ -276,8 +297,9 @@ test("hexToRgba parses with and without alpha", () => {
   assert.throws(() => hexToRgba("nope"));
   for (const c of THEME.petals) hexToRgba(c);
 });
-test("every sign has both hints", () => {
-  for (const s of SIGNS) assert.ok(s.hint.length > 0 && s.hintBn.length > 0, s.id);
+test("every sign in every pack has a label and both hints", () => {
+  for (const pack of PACKS)
+    for (const s of pack.signs) assert.ok(s.label.length > 0 && s.hint.length > 0 && s.hintBn.length > 0, s.id);
 });
 
 console.log("PaintSession");

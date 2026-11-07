@@ -165,13 +165,13 @@ def report(summary):
         print("   Keep only one of each pair, or add a feature (finger spread / thumb contact).")
     else:
         print("✓ All digits are separable by finger curl at the standard tolerance.")
-    print("\n// Paste into Assets/Scripts/core/SignLibrary.ts (add hints before shipping):")
+    print("\n// Paste into BANGLA_STARTER_SIGNS in Assets/Scripts/core/SignLibrary.ts (add hints before shipping):")
     for i in sorted(summary):
         m = summary[i]["median"]
         digit, bn, roman, sid = DIGITS[i]
         vals = ", ".join(f"{snap(m[f]):.2f}".rstrip("0").rstrip(".") for f in ORDER)
         print(
-            f'  {{ id: "{sid}", bangla: "{bn}", roman: "{roman}", english: "{ENGLISH[i]}",\n'
+            f'  {{ id: "bn.{sid}", label: "{bn}", reading: "{roman}", english: "{ENGLISH[i]}",\n'
             f'    curls: c({vals}),\n'
             f'    hint: "TODO", hintBn: "TODO" }},  // {digit}'
         )

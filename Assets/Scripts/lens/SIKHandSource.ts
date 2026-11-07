@@ -6,13 +6,14 @@ import { HandSource } from "./HandSource";
 /**
  * Reads the real tracked hand through Spectacles Interaction Kit (SIK).
  *
- * VERIFY: joint property names below follow the SIK TrackedHand API
- * (thumbKnuckle / thumbInnerJoint / thumbOuterJoint / thumbTip, etc.).
- * If your installed SIK version names them differently, only the `JOINTS`
- * table needs to change — all the matching logic lives in core/ and is tested.
+ * Joint names follow Snap's published SIK BaseHand API: each finger has
+ * knuckle (MCP) -> mid (PIP) -> upper (DIP) -> tip, and the thumb has
+ * base (CMC) -> knuckle (MCP) -> mid (IP) -> tip.
+ * If your installed SIK version differs, only the `JOINTS` table needs to
+ * change — all matching logic lives in core/ and is unit-tested.
  */
 const JOINTS: Record<FingerName, [string, string, string, string]> = {
-  thumb: ["thumbKnuckle", "thumbInnerJoint", "thumbOuterJoint", "thumbTip"],
+  thumb: ["thumbBaseJoint", "thumbKnuckle", "thumbMidJoint", "thumbTip"],
   index: ["indexKnuckle", "indexMidJoint", "indexUpperJoint", "indexTip"],
   middle: ["middleKnuckle", "middleMidJoint", "middleUpperJoint", "middleTip"],
   ring: ["ringKnuckle", "ringMidJoint", "ringUpperJoint", "ringTip"],
@@ -56,6 +57,7 @@ export class SIKHandSource implements HandSource {
 
   isPinching(): boolean {
     if (!this.hand.isTracked()) return false;
+    if (typeof this.hand.isPinching === "function") return !!this.hand.isPinching();
     const a: vec3 | undefined = this.hand.thumbTip?.position;
     const b: vec3 | undefined = this.hand.indexTip?.position;
     if (!a || !b) return false;

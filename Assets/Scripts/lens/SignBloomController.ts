@@ -86,7 +86,7 @@ export class SignBloomController extends BaseScriptComponent {
   banglaUi: boolean = false;
 
   private session: Session;
-  private source: HandSource;
+  private source: HandSource | null = null;
   private sim: SimulatedHandSource | null = null;
   private progress: ProgressStore;
   private lang: Lang = "en";
@@ -116,7 +116,10 @@ export class SignBloomController extends BaseScriptComponent {
       this.sim.reactionSeconds = this.preset === "demo" ? 0.5 : 1.2;
       this.source = this.sim;
     } else {
-      this.source = new SIKHandSource(this.rightHand ? "right" : "left");
+      // SIK hand data is only guaranteed ready once the Lens has started.
+      this.createEvent("OnStartEvent").bind(() => {
+        this.source = new SIKHandSource(this.rightHand ? "right" : "left");
+      });
     }
 
     this.session.onLearned = (_sign, ring, stars) => {
@@ -140,7 +143,7 @@ export class SignBloomController extends BaseScriptComponent {
       this.sim.update(dt);
     }
 
-    this.lastCurls = this.source.getCurls();
+    this.lastCurls = this.source ? this.source.getCurls() : null;
     const snap = this.session.update(dt, this.lastCurls);
 
     this.renderText(snap);
@@ -279,8 +282,8 @@ export class SignBloomController extends BaseScriptComponent {
       }
       return;
     }
-    const tip = this.source.getIndexTip();
-    if (tip && this.source.isPinching()) {
+    const tip = this.source ? this.source.getIndexTip() : null;
+    if (tip && this.source && this.source.isPinching()) {
       const local = this.painter.paintRoot.getTransform().getInvertedWorldTransform().multiplyPoint(tip);
       this.painter.paint(local.x, local.y);
       this.painting = true;

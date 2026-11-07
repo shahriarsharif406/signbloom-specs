@@ -39,6 +39,10 @@ Assets/Scripts/
 | `LensPersistentStore` | `KeyValueStore` backed by Lens Studio storage |
 | `ColorUtil` | Theme colours → materials/text |
 
+## Tools
+
+`tools/derive_curls.py` computes curls from BdSL47 keypoints with the same formula as `HandPose.ts` (self-tested), so sign targets can come from real data instead of guesses.
+
 ## Why finger curl?
 
 Raw joint distances change with hand size, camera distance and rotation. Reducing each finger to one bend-based number makes matching tolerant of all three, easy to explain to a learner ("curl your ring finger"), and trivially testable with synthetic hands. The trade-off — it cannot represent motion or fine finger positions — is listed in the [roadmap](ROADMAP.md).

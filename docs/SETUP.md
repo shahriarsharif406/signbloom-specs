@@ -33,6 +33,8 @@ SignBloom
 
 Bar order everywhere is **thumb, index, middle, ring, pinky**. Colours are applied by the script from the theme, so you don't need to colour anything by hand — but each bar must have a mesh with a material.
 
+**Keep the screen clean:** for judges and the video, leave the optional `StreakText` and `StatsText` empty — fewer words on screen reads faster.
+
 **Bangla text:** assign a font that supports Bengali script (e.g. Noto Sans Bengali) to every Text component, otherwise the characters will not render.
 
 ## 3. Prefabs and materials

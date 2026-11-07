@@ -9,6 +9,7 @@
 - [x] 46 unit tests, Lens type-check, CI
 
 ## Next
+0. **Real BdSL targets:** run `tools/derive_curls.py` on BdSL47 (10 digits ০–৯) and replace the starter set.
 1. **Educator review** of the sign set with Bangla Sign Language educators and Deaf learners; adopt their corrections as the source of truth.
 2. **Expanded curriculum:** alphabet (বর্ণমালা), greetings, family words, in levels with unlock progression.
 3. **Ghost hand:** a rigged 3D hand that demonstrates each sign in front of the learner.

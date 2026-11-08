@@ -14,6 +14,18 @@ A Snap SPECS Lens that teaches sign language by making art. Every handshape you 
 2. **Hold** it for a second — petals bloom.
 3. **Finish** the set, then draw your own symmetric bloom in mid-air.
 
+## What it looks like
+
+*Concept renders drawn from the project's own geometry and colour code — not Lens Studio captures.*
+
+| Copy the shape | Bloom complete | Draw your own |
+|---|---|---|
+| ![practice](docs/img/2-practice.png) | ![bloom](docs/img/4-complete.png) | ![paint](docs/img/5-paint.png) |
+
+## How it differs from existing work
+
+Snap's own *Sign With Snap* lenses (2022, with SignAll) teach the ASL alphabet on the phone camera, and Spectacles hackathon entries such as SnapSign, HandSpeaker and SignBridge focus on *translation*. SignBloom is about *practice*: per-finger coaching on a hands-free display, a reward that is art rather than points, and a pack system that is not tied to one language.
+
 ## Any sign language
 
 The engine is language-agnostic: a **sign pack** is just a list of handshapes. It ships with **ASL** numbers and handshapes (default) and a **Bangla** numerals starter, and a pack can be derived from open data — `tools/derive_curls.py` turns the BdSL47 dataset into Bangla Sign Language targets.

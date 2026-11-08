@@ -100,3 +100,9 @@ Set **Demo Mode** off and Preset to *Standard* or *Accessible*. `SIKHandSource` 
 | Stuck on the welcome screen | Demo Mode needs ~2 s; on device, show your hand or press Start (`begin`) |
 | Sign never "takes" in demo | Make sure all 5 + 5 bars are assigned |
 | Import error for `SIK` | Install Spectacles Interaction Kit from the Asset Library |
+
+## Design notes for the SPECS display
+
+- SPECS use a see-through display: **dark areas look transparent**. Give text a light plate or a light outline, and prefer bright, saturated colours.
+- Keep panels few and small. Place the bloom in the world at arm's reach and real size, not as a screen floating in front of the face.
+- Hands are both the input and the lesson, so keep the centre of view free.

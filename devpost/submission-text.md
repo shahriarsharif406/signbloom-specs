@@ -24,6 +24,9 @@ Lens Studio, Spectacles Interaction Kit, TypeScript, Claude (AI-assisted develop
 ## How we used the required tools
 [TODO — one or two true sentences on how you used the Devpost Learn skill pack, CLAD, Lens Studio and the Lens Studio MCP. Judges score this.]
 
+## Disclosures
+[TODO — keep only what is true] Planned with the Devpost Learn skill pack; built in Lens Studio through CLAD and the Lens Studio MCP. The TypeScript in `Assets/Scripts` was written with Claude, an AI coding assistant, during the submission period. Uses Lens Studio and the Spectacles Interaction Kit. No other pre-existing code.
+
 ## Links
 - Code: https://github.com/shahriarsharif406/signbloom-specs
 - Video: [paste YouTube link]

@@ -1,0 +1,43 @@
+- !<ObjectPrefab/a5ee806b-cf84-4665-8877-afe5543be64d>
+  PackagePath: ""
+  objects:
+    - !<own> c14f31e8-8f5b-4f3c-838b-eddd4a88c559
+  LazyLoading: false
+  RetainAssets: true
+  PreviewEnvironment: !<reference> 00000000-0000-0000-0000-000000000000
+- !<RenderMeshVisual/44462c71-9dec-443e-9c6a-9df43a0795ed>
+  PrefabRemaps:
+    []
+  Name: Render Mesh Visual
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> fa59761c-b7d3-486a-83cb-b24899e1c521
+  Mesh: !<reference> 8646db56-45c5-4a12-b338-581568770e56
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/c14f31e8-8f5b-4f3c-838b-eddd4a88c559>
+  PrefabRemaps:
+    - 44462c71-9dec-443e-9c6a-9df43a0795ed: 44462c71-9dec-443e-6395-620bc5f86a12
+    - c14f31e8-8f5b-4f3c-838b-eddd4a88c559: c14f31e8-8f5b-4f3c-7c74-1222b5773aa6
+  Name: DotSrc
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 0.080000, y: 0.080000, z: 0.080000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 44462c71-9dec-443e-9c6a-9df43a0795ed

@@ -5,3 +5,31 @@ Workspaces/
 .DS_Store
 Thumbs.db
 *.log
+
+.mcp.json
+
+# Secrets / local MCP + agent config (contain Bearer tokens or machine-local paths)
+**/.mcp.json
+**/.cursor/
+**/.codex/
+**/.vscode/
+**/.claude/
+**/.agents/
+**/.clad/
+agent/
+skills-lock.json
+**/skills-lock.json
+**/ls-live-instance.json*
+**/.virtual-scene.json
+*.pem
+*.lock
+
+# Lens Studio local/generated folders
+**/Cache/
+**/Support/
+**/Plugins/
+**/PluginsUserPreferences/
+**/Workspaces/
+**/BackUp/
+SignBloom/jsconfig.json
+SignBloom/tsconfig.json

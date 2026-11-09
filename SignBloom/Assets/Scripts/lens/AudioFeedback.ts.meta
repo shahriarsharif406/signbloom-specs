@@ -1,0 +1,55 @@
+- !<AssetImportMetadata/5e61c56f-6712-4d3a-bdae-800252bb46bc>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 39b88c91-a2d0-42ac-a605-8b25a66c648e
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 39b88c91-a2d0-42ac-a605-8b25a66c648e
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 49d4464e-88dd-42cc-8967-1118d74dba61
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/49d4464e-88dd-42cc-8967-1118d74dba61>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 5ba8d607-864a-4044-8ba4-16bd92b9a784
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    complete: false
+    learned: false
+    star3: false
+    tap: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - learned: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
+      star3: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
+      complete: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
+      tap: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Component.AudioComponent learned {"hint":"Played when a sign is learned (1–2 stars)."}'
+    - '// @input Component.AudioComponent star3 {"hint":"Played when a sign is learned with 3 stars."}'
+    - '// @input Component.AudioComponent complete {"hint":"Played when the lesson is complete."}'
+    - '// @input Component.AudioComponent tap {"hint":"Played on button taps (quiz, language, undo…)."}'

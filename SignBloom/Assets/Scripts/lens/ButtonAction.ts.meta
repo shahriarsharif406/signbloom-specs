@@ -1,0 +1,49 @@
+- !<AssetImportMetadata/6819f532-b3ab-4749-97fa-9ef1c2b40b0a>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> adde859b-345a-46be-8106-8a307bbbe4ca
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> adde859b-345a-46be-8106-8a307bbbe4ca
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> de8fdd42-9eb1-49fb-95a0-b2187dfb1dbc
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/de8fdd42-9eb1-49fb-95a0-b2187dfb1dbc>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 1b1f6b6c-762c-4138-8f32-25fa31c5619d
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    action: false
+    controller: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - controller: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      action: next
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType_1 controller
+    - '// @input string action = "next" {"widget":"combobox", "values":[{"label":"Next sign", "value":"next"}, {"label":"ASL pack", "value":"packAsl"}, {"label":"Bangla pack", "value":"packBangla"}, {"label":"Start Alpona Air", "value":"startAir"}, {"label":"End (back to lessons)", "value":"endAir"}, {"label":"Clear drawing", "value":"clear"}, {"label":"Restart", "value":"restart"}]}'

@@ -1,0 +1,62 @@
+- !<AssetImportMetadata/92751439-fb2c-4e3f-94ad-61caecd47e00>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> dad3163b-d235-4537-8e0c-34ceb1a5cb7b
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> dad3163b-d235-4537-8e0c-34ceb1a5cb7b
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 26252c64-dcd0-4560-9c10-fd8e9f3ac352
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/26252c64-dcd0-4560-9c10-fd8e9f3ac352>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 6c97d64b-34fe-46ab-89fa-9e860a29b52d
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    bloomRoot: false
+    breathe: false
+    palette: false
+    petalMaterial: false
+    petalPrefab: false
+    sizeScale: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - petalPrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
+      bloomRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      petalMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      palette: !<reference.Material[]>
+        []
+      sizeScale: !<float> 1.000000
+      breathe: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Asset.ObjectPrefab petalPrefab {"hint":"Prefab of a single petal. A flat, upward-pointing shape works best."}'
+    - '// @input SceneObject bloomRoot {"hint":"Parent object that the petals are created under (placed in front of the learner)."}'
+    - "// @input Asset.Material petalMaterial {\"hint\":\"Optional: the petal prefab's material. When set, the Lens auto-makes a premium alpona palette from it.\"}"
+    - '// @input Asset.Material[] palette {"hint":"Optional: your own materials (overrides the automatic palette)."}'
+    - '// @input float sizeScale = 1 {"hint":"Overall size multiplier for the whole bloom."}'
+    - '// @input bool breathe = true {"hint":"Gentle idle breathing of the finished bloom."}'

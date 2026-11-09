@@ -1,0 +1,116 @@
+- !<AssetImportMetadata/9693d1d7-977f-479d-a74a-03ecbf1d0c20>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> cb9603a5-b9e8-4c18-a632-107974715c7f
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> cb9603a5-b9e8-4c18-a632-107974715c7f
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> e5d689d8-13a0-49c3-a741-de40c8c273c6
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/e5d689d8-13a0-49c3-a741-de40c8c273c6>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: f7f84aca-140b-4a25-b4f7-31498c498e5e
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    airButtons: false
+    audio: false
+    banglaUi: false
+    bloom: false
+    demoBanner: false
+    demoMode: false
+    flowerBadge: false
+    gaugeRoot: false
+    hintText: false
+    holdIndicator: false
+    lessonButtons: false
+    liveBars: false
+    painter: false
+    preset: false
+    progressText: false
+    rightHand: false
+    signLabel: false
+    signPack: false
+    signSubtitle: false
+    startAirButton: false
+    statsText: false
+    streakText: false
+    targetBars: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - signLabel: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      signSubtitle: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      hintText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      progressText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      streakText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      statsText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      targetBars: !<reference.SceneObject[]>
+        []
+      liveBars: !<reference.SceneObject[]>
+        []
+      holdIndicator: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      bloom: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      painter: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      audio: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      startAirButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      airButtons: !<reference.SceneObject[]>
+        []
+      lessonButtons: !<reference.SceneObject[]>
+        []
+      demoBanner: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      flowerBadge: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      gaugeRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      demoMode: true
+      rightHand: true
+      preset: demo
+      signPack: asl
+      banglaUi: false
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input Component.Text signLabel
+    - // @input Component.Text signSubtitle
+    - // @input Component.Text hintText
+    - // @input Component.Text progressText
+    - "// @input Component.Text streakText {\"hint\":\"Optional: shows the combo streak, e.g. 'Streak ×3'.\"}"
+    - '// @input Component.Text statsText {"hint":"Optional: shows XP / stars / accuracy."}'
+    - '// @input SceneObject[] targetBars {"hint":"Bars showing the TARGET pose. Tall bar = finger extended."}'
+    - '// @input SceneObject[] liveBars {"hint":"Bars showing YOUR live hand, drawn next to the target bars."}'
+    - '// @input SceneObject holdIndicator {"hint":"Optional object scaled from 0 to 1 as the sign is held."}'
+    - // @input AssignableType_1 bloom
+    - // @input AssignableType_2 painter
+    - // @input AssignableType_3 audio
+    - '// @input SceneObject startAirButton {"hint":"Shown only after a set is finished (summary phase)."}'
+    - '// @input SceneObject[] airButtons {"hint":"Shown only while drawing in Alpona Air."}'
+    - '// @input SceneObject[] lessonButtons {"hint":"Next + pack chips: dim while the hand is up, bright when it is lowered."}'
+    - '// @input SceneObject demoBanner {"hint":"Label that makes it obvious the hand is simulated (visible only in Demo Mode)."}'
+    - '// @input SceneObject flowerBadge {"hint":"Flower badge on the card; shown while the bloom plays after a sign is learned. Its children are the petals."}'
+    - '// @input SceneObject gaugeRoot {"hint":"Parent of the five gauges; fades out when no hand is tracked."}'
+    - '// @input bool demoMode = true {"hint":"Use the scripted virtual hand (for Lens Studio preview and the demo video)."}'
+    - '// @input bool rightHand = true {"hint":"Which hand to track on device."}'
+    - '// @input string preset = "demo" {"hint":"Pacing and match strictness.", "widget":"combobox", "values":[{"label":"Demo (fast, for video)", "value":"demo"}, {"label":"Standard", "value":"standard"}, {"label":"Accessible (slower, forgiving)", "value":"accessible"}]}'
+    - '// @input string signPack = "asl" {"hint":"Which sign-language pack to teach.", "widget":"combobox", "values":[{"label":"American Sign Language (default)", "value":"asl"}, {"label":"Bangla numerals (starter)", "value":"bangla"}]}'
+    - '// @input bool banglaUi {"hint":"Start in Bangla. Can be toggled at runtime with toggleLanguage()."}'
